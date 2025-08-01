@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="de">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vocabulário de Alemão</title>
-  <!-- Tailwind CSS para estilização -->
+  <title>Deutscher Wortschatz</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Fonte "Inter" para um visual moderno -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,8 +14,8 @@
     }
     .flashcard {
       perspective: 1000px;
-      height: 420px; /* Aumenta a altura do cartão */
-      max-height: 80vh; /* Limita a altura máxima na tela */
+      height: 420px;
+      max-height: 80vh;
     }
     .flashcard-inner {
       position: relative;
@@ -44,23 +42,22 @@
       justify-content: center;
       align-items: center;
       padding: 2rem;
-      overflow-y: auto; /* Permite rolagem vertical */
-      max-height: 100%; /* Garante que não ultrapasse o cartão */
+      overflow-y: auto;
+      max-height: 100%;
     }
     .flashcard-front {
-      background-color: #f1f5f9; /* bg-slate-100 */
-      color: #1f2937; /* text-gray-800 */
+      background-color: #f1f5f9;
+      color: #1f2937;
     }
     .flashcard-back {
-      background-color: #6366f1; /* bg-indigo-500 */
+      background-color: #6366f1;
       color: white;
       transform: rotateY(180deg);
-      padding-bottom: 2.5rem; /* Mais espaço para rolar */
+      padding-bottom: 2.5rem;
     }
-    /* Estilização responsiva para o cartão */
     @media (max-width: 640px) {
       .flashcard {
-        height: 480px; /* Mais altura para mobile */
+        height: 480px;
         max-height: 95vh;
       }
       .flashcard-front, .flashcard-back {
@@ -68,22 +65,17 @@
       }
     }
   </style>
-  <!-- Bibliotecas React e ReactDOM -->
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-  <!-- Biblioteca Babel para processar o JSX -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900">
 
-  <!-- Onde a aplicação React será renderizada -->
   <div id="root"></div>
 
-  <!-- Nosso código React. O "type=text/babel" permite que o Babel o processe. -->
   <script type="text/babel">
     const { useState, useEffect } = React;
 
-    // Dados para todas as palavras, suas traduções e exemplos de frases.
     const wordData = [
       {
         german: 'der Vegetarier, - / die Vegetarierin, -nen',
@@ -695,13 +687,10 @@
       }
     ];
 
-    // Componente para a lista de vocabulário
     const ListSection = ({ searchQuery, setSearchQuery, toggleRow, expandedRow }) => {
-      // Estado para ordenação
-      const [sortColumn, setSortColumn] = useState(null); // 'german', 'english', 'portuguese'
-      const [sortOrder, setSortOrder] = useState('asc'); // 'asc' ou 'desc'
+      const [sortColumn, setSortColumn] = useState(null);
+      const [sortOrder, setSortOrder] = useState('asc');
 
-      // Função para ordenar os dados
       const getSortedWords = () => {
         let filtered = wordData.filter(word =>
           word.german.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -720,7 +709,6 @@
         return filtered;
       };
 
-      // Alterna a ordenação ao clicar no header
       const handleSort = (column) => {
         if (sortColumn === column) {
           setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
@@ -735,12 +723,12 @@
       return (
         <>
           <p className="text-center text-lg text-gray-600 dark:text-gray-300 mb-10">
-            Uma lista interativa de palavras em alemão com traduções em inglês e português.
+            Eine interaktive Liste deutscher Wörter mit Übersetzungen auf Englisch und Portugiesisch.
           </p>
           <div className="mb-8">
             <input
               type="text"
-              placeholder="Pesquisar por palavras em alemão, inglês ou português..."
+              placeholder="Suche nach deutschen, englischen oder portugiesischen Wörtern..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
@@ -749,19 +737,19 @@
           <div className="bg-white dark:bg-gray-800 shadow-xl rounded-2xl overflow-hidden">
             <div className="hidden lg:grid grid-cols-6 gap-4 p-4 text-sm sm:text-base font-semibold uppercase text-gray-600 dark:text-gray-300 bg-gray-200 dark:bg-gray-700">
               <div className="col-span-2 cursor-pointer flex items-center" onClick={() => handleSort('german')}>
-                Alemão
+                Deutsch
                 {sortColumn === 'german' && (
                   <span className="ml-2 text-indigo-600 dark:text-indigo-400">{sortOrder === 'asc' ? '▲' : '▼'}</span>
                 )}
               </div>
               <div className="col-span-2 cursor-pointer flex items-center" onClick={() => handleSort('english')}>
-                Inglês
+                Englisch
                 {sortColumn === 'english' && (
                   <span className="ml-2 text-indigo-600 dark:text-indigo-400">{sortOrder === 'asc' ? '▲' : '▼'}</span>
                 )}
               </div>
               <div className="col-span-2 cursor-pointer flex items-center" onClick={() => handleSort('portuguese')}>
-                Português
+                Portugiesisch
                 {sortColumn === 'portuguese' && (
                   <span className="ml-2 text-indigo-600 dark:text-indigo-400">{sortOrder === 'asc' ? '▲' : '▼'}</span>
                 )}
@@ -771,18 +759,20 @@
             {sortedWords.map((word, index) => (
               <div key={index} className="border-t border-gray-200 dark:border-gray-700">
                 <div
-                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 p-4 items-center cursor-pointer hover:bg-indigo-50 dark:hover:bg-gray-700 transition-colors duration-200"
+                  className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 p-4 items-center cursor-pointer hover:bg-indigo-50 dark:hover:bg-gray-600 transition-colors duration-200 ${
+                    index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-slate-50 dark:bg-gray-700'
+                  }`}
                   onClick={() => toggleRow(index)}
                 >
                   <div className="col-span-1 sm:col-span-2 lg:col-span-2 font-bold text-lg text-indigo-700 dark:text-indigo-300">
                     {word.german}
                   </div>
                   <div className="col-span-1 sm:col-span-2 lg:col-span-2 text-gray-800 dark:text-gray-200">
-                    <span className="sm:hidden font-semibold text-gray-500 dark:text-gray-400">Inglês: </span>
+                    <span className="sm:hidden font-semibold text-gray-500 dark:text-gray-400">Englisch: </span>
                     {word.english}
                   </div>
                   <div className="col-span-1 sm:col-span-2 lg:col-span-2 text-gray-800 dark:text-gray-200">
-                    <span className="sm:hidden font-semibold text-gray-500 dark:text-gray-400">Português: </span>
+                    <span className="sm:hidden font-semibold text-gray-500 dark:text-gray-400">Portugiesisch: </span>
                     {word.portuguese}
                   </div>
                   <span className="ml-auto text-xl text-indigo-500 dark:text-indigo-400 transition-transform duration-200">
@@ -792,19 +782,19 @@
                 <div
                   className={`transition-all duration-300 ease-in-out overflow-hidden ${
                     expandedRow === index ? 'max-h-96 opacity-100 p-4' : 'max-h-0 opacity-0 p-0'
-                  } bg-gray-50 dark:bg-gray-700`}
+                  } ${index % 2 === 0 ? 'bg-gray-50 dark:bg-gray-800/50' : 'bg-slate-100 dark:bg-gray-700/50'}`}
                 >
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-gray-700 dark:text-gray-200 border-l-4 border-indigo-500 pl-4">
                     <div>
-                      <h4 className="font-semibold text-sm uppercase text-indigo-600 dark:text-indigo-400 mb-1">Exemplo em Alemão</h4>
+                      <h4 className="font-semibold text-sm uppercase text-indigo-600 dark:text-indigo-400 mb-1">Beispiel auf Deutsch</h4>
                       <p className="italic">"{word.germanExample}"</p>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-sm uppercase text-indigo-600 dark:text-indigo-400 mb-1">Exemplo em Inglês</h4>
+                      <h4 className="font-semibold text-sm uppercase text-indigo-600 dark:text-indigo-400 mb-1">Beispiel auf Englisch</h4>
                       <p className="italic">"{word.englishExample}"</p>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-sm uppercase text-indigo-600 dark:text-indigo-400 mb-1">Exemplo em Português</h4>
+                      <h4 className="font-semibold text-sm uppercase text-indigo-600 dark:text-indigo-400 mb-1">Beispiel auf Portugiesisch</h4>
                       <p className="italic">"{word.portugueseExample}"</p>
                     </div>
                   </div>
@@ -816,11 +806,9 @@
       );
     };
 
-    // Componente para o jogo de flashcards
     const FlashcardGame = () => {
         const SESSION_SIZE = 10;
         
-        // Estado para a sessão atual de cartões
         const [sessionCards, setSessionCards] = useState([]);
         const [currentCardIndex, setCurrentCardIndex] = useState(0);
         const [isFlipped, setIsFlipped] = useState(false);
@@ -828,7 +816,6 @@
         const [isSessionFinished, setIsSessionFinished] = useState(false);
         const [correctCount, setCorrectCount] = useState(0);
         
-        // Função para embaralhar um array
         const shuffleArray = (array) => {
             let shuffled = [...array];
             for (let i = shuffled.length - 1; i > 0; i--) {
@@ -838,7 +825,6 @@
             return shuffled;
         };
 
-        // Inicia um novo jogo ou sessão
         const startNewSession = (cardsToUse = wordData) => {
             const shuffled = shuffleArray(cardsToUse);
             const newSession = shuffled.slice(0, SESSION_SIZE);
@@ -850,77 +836,67 @@
             setCorrectCount(0);
         };
         
-        // Inicia o jogo na montagem do componente
         useEffect(() => {
           startNewSession();
         }, []);
 
-        // Lida com o resultado do cartão
         const handleCardResult = (isCorrect) => {
-          // Vira o cartão para que o usuário possa ver a resposta antes de avançar
           if (!isFlipped) {
               setIsFlipped(true);
               return;
           }
 
-          // Se a resposta está incorreta, adiciona o cartão ao array de errados
           if (!isCorrect) {
               setIncorrectCards((prev) => [...prev, sessionCards[currentCardIndex]]);
           } else {
               setCorrectCount((prev) => prev + 1);
           }
 
-          // Move para o próximo cartão
           const nextIndex = currentCardIndex + 1;
           if (nextIndex < sessionCards.length) {
               setCurrentCardIndex(nextIndex);
               setIsFlipped(false);
           } else {
-              // Fim da sessão
               setIsSessionFinished(true);
           }
         };
 
-        // Lida com o fim da sessão
         const handleSessionEnd = () => {
-          // Se houver cartões incorretos, inicia uma nova sessão com eles
           if (incorrectCards.length > 0) {
               startNewSession(incorrectCards);
           } else {
-              // Se todos os cartões foram corretos, oferece para começar um novo jogo
               startNewSession();
           }
         };
 
-        // Componente para a tela de final de sessão
         const SessionSummary = () => (
           <div className="flex flex-col items-center justify-center p-8 bg-white dark:bg-gray-800 shadow-xl rounded-2xl">
-            <h2 className="text-3xl font-bold text-indigo-700 dark:text-indigo-300 mb-4">Sessão Concluída!</h2>
+            <h2 className="text-3xl font-bold text-indigo-700 dark:text-indigo-300 mb-4">Sitzung abgeschlossen!</h2>
             <p className="text-xl text-gray-700 dark:text-gray-200 mb-6">
-              Você acertou {correctCount} de {SESSION_SIZE} cartões.
+              Du hast {correctCount} von {sessionCards.length} Karten richtig beantwortet.
             </p>
             {incorrectCards.length > 0 ? (
                 <>
                   <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
-                    Você errou {incorrectCards.length} palavra(s). Vamos revisá-las!
+                    Du hast bei {incorrectCards.length} Karten einen Fehler gemacht. Wiederholen wir sie!
                   </p>
                   <button
                       onClick={() => handleSessionEnd()}
                       className="py-3 px-8 bg-indigo-600 text-white rounded-full font-bold shadow-md hover:bg-indigo-700 transition-colors duration-200"
                   >
-                      Revisar Cartões Errados
+                      Falsche Karten wiederholen
                   </button>
                 </>
             ) : (
                 <>
                   <p className="text-lg text-green-600 dark:text-green-400 font-semibold mb-4">
-                    Parabéns! Você acertou todos os cartões!
+                    Glückwunsch! Alle Karten richtig!
                   </p>
                   <button
                       onClick={() => startNewSession()}
                       className="py-3 px-8 bg-indigo-600 text-white rounded-full font-bold shadow-md hover:bg-indigo-700 transition-colors duration-200"
                   >
-                      Começar Nova Sessão
+                      Neue Sitzung starten
                   </button>
                 </>
             )}
@@ -934,7 +910,7 @@
         if (sessionCards.length === 0) {
             return (
                 <div className="text-center text-lg text-gray-600 dark:text-gray-300 mt-20">
-                    Carregando flashcards...
+                    Lernkarten werden geladen...
                 </div>
             );
         }
@@ -944,7 +920,7 @@
         return (
             <div className="flex flex-col items-center justify-center p-4">
                 <p className="text-center text-lg text-gray-600 dark:text-gray-300 mb-6">
-                    Sessão {currentCardIndex + 1} de {sessionCards.length}
+                    Karte {currentCardIndex + 1} von {sessionCards.length}
                 </p>
 
                 <div 
@@ -952,33 +928,30 @@
                     onClick={() => setIsFlipped(!isFlipped)}
                 >
                     <div className="flashcard-inner">
-                        {/* Frente do cartão (palavra em alemão) */}
                         <div className="flashcard-front bg-white dark:bg-gray-800 text-gray-900 dark:text-white shadow-lg border-2 border-indigo-500">
                             <h2 className="text-3xl sm:text-4xl font-bold text-indigo-700 dark:text-indigo-300 mb-2">{currentWord.german}</h2>
-                            <p className="text-lg italic text-gray-600 dark:text-gray-400 mt-4">Clique para ver a tradução</p>
+                            <p className="text-lg italic text-gray-600 dark:text-gray-400 mt-4">Klicken, um die Übersetzung zu sehen</p>
                         </div>
-                        {/* Verso do cartão (traduções e exemplos) */}
                         <div className="flashcard-back bg-indigo-600 text-white shadow-lg flex-col justify-center items-center">
                             <div className="flex flex-col items-start w-full text-left">
-                                <h3 className="text-xl sm:text-2xl font-semibold mb-1">Inglês:</h3>
+                                <h3 className="text-xl sm:text-2xl font-semibold mb-1">Englisch:</h3>
                                 <p className="text-lg italic mb-2">"{currentWord.english}"</p>
-                                <h3 className="text-xl sm:text-2xl font-semibold mb-1">Português:</h3>
+                                <h3 className="text-xl sm:text-2xl font-semibold mb-1">Portugiesisch:</h3>
                                 <p className="text-lg italic mb-4">"{currentWord.portuguese}"</p>
                                 
                                 <hr className="w-full border-t border-indigo-300 my-2"/>
                                 
-                                <h4 className="text-sm font-semibold uppercase text-indigo-200 mt-2">Exemplo em Alemão:</h4>
+                                <h4 className="text-sm font-semibold uppercase text-indigo-200 mt-2">Beispiel auf Deutsch:</h4>
                                 <p className="text-base italic mb-1">"{currentWord.germanExample}"</p>
-                                <h4 className="text-sm font-semibold uppercase text-indigo-200 mt-2">Exemplo em Inglês:</h4>
+                                <h4 className="text-sm font-semibold uppercase text-indigo-200 mt-2">Beispiel auf Englisch:</h4>
                                 <p className="text-base italic mb-1">"{currentWord.englishExample}"</p>
-                                <h4 className="text-sm font-semibold uppercase text-indigo-200 mt-2">Exemplo em Português:</h4>
+                                <h4 className="text-sm font-semibold uppercase text-indigo-200 mt-2">Beispiel auf Portugiesisch:</h4>
                                 <p className="text-base italic">"{currentWord.portugueseExample}"</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Botões de controle de jogo */}
                 <div className="flex justify-center space-x-4 w-full max-w-md mt-4">
                     <button
                         onClick={() => handleCardResult(false)}
@@ -987,7 +960,7 @@
                             isFlipped ? 'bg-red-500 hover:bg-red-600 text-white' : 'bg-gray-300 dark:bg-gray-700 text-gray-500 cursor-not-allowed'
                         }`}
                     >
-                        Errei
+                        Falsch
                     </button>
                     <button
                         onClick={() => handleCardResult(true)}
@@ -996,24 +969,22 @@
                             isFlipped ? 'bg-green-500 hover:bg-green-600 text-white' : 'bg-gray-300 dark:bg-gray-700 text-gray-500 cursor-not-allowed'
                         }`}
                     >
-                        Acertei
+                        Richtig
                     </button>
                 </div>
                 
-                {/* Botão para embaralhar novamente */}
                 <div className="mt-8">
                   <button
                       onClick={() => startNewSession()}
                       className="py-2 px-6 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full font-bold hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200"
                   >
-                      Embaralhar Novamente
+                      Neu mischen
                   </button>
                 </div>
             </div>
         );
     };
 
-    // Componente principal da Aplicação
     const App = () => {
       const [currentPage, setCurrentPage] = useState('list');
       const [expandedRow, setExpandedRow] = useState(null);
@@ -1027,10 +998,9 @@
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-50 p-4 font-sans antialiased flex flex-col items-center">
           <div className="w-full max-w-6xl mx-auto my-8">
             <h1 className="text-4xl sm:text-5xl font-extrabold text-center text-indigo-800 dark:text-indigo-400 mb-6 drop-shadow-md">
-              Vocabulário de Alemão
+              Deutscher Wortschatz
             </h1>
             
-            {/* Barra de navegação para alternar entre as visualizações */}
             <div className="flex justify-center mb-10 space-x-4">
                 <button
                     onClick={() => setCurrentPage('list')}
@@ -1040,7 +1010,7 @@
                             : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
                     }`}
                 >
-                    Lista de Vocabulário
+                    Wortschatzliste
                 </button>
                 <button
                     onClick={() => setCurrentPage('flashcards')}
@@ -1050,11 +1020,10 @@
                             : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
                     }`}
                 >
-                    Flashcards
+                    Lernkarten
                 </button>
             </div>
 
-            {/* Renderiza a seção correta com base na página atual */}
             {currentPage === 'list' ? (
                 <ListSection
                     searchQuery={searchQuery}
@@ -1071,7 +1040,6 @@
       );
     };
 
-    // Renderiza a aplicação no elemento com o ID 'root'
     const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(<App />);
   </script>
